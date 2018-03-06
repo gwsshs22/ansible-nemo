@@ -1,0 +1,12 @@
+---
+- name: install java
+  become: true
+  yum:
+    name: "{{ java_version }}"
+    state: present
+
+- name: setup java environment variables
+  become: true
+  template:
+    src: java_env.sh
+    dest: /etc/profile.d

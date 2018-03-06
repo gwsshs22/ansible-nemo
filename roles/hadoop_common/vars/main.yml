@@ -1,0 +1,5 @@
+hadoop_base_path: /opt/hadoop
+hadoop_version: hadoop-2.7.4
+hadoop_dist_url: http://apache.rediris.es/hadoop/core/stable2/
+
+hadoop_config_files_path: ""
