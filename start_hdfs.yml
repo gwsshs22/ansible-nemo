@@ -6,7 +6,7 @@
   - name: format name node
     become: yes
     become_flags: -E
-    shell: hdfs namenode -format
+    shell: $HADOOP_HOME/bin/hdfs namenode -format
 
   - name: start name node process
     become: yes
