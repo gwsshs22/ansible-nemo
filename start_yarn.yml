@@ -4,7 +4,9 @@
     - hadoop_common
   tasks:
   - name: start resource manager process
-    shell: yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager
+    become: yes
+    become_flags: -E
+    shell: $HADOOP_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager
 
 
 - hosts: node_manager
@@ -12,7 +14,9 @@
     - hadoop_common
   tasks:
   - name: start node manager process
-    shell: yarn-daemons.sh --config $HADOOP_CONF_DIR start nodemanager
+    become: yes
+    become_flags: -E
+    shell: $HADOOP_HOME/sbin/yarn-daemons.sh --config $HADOOP_CONF_DIR start nodemanager
 
 
 - hosts: resource_manager
@@ -20,4 +24,6 @@
     - hadoop_common
   tasks:
   - name: start proxy server process
-    shell: yarn-daemon.sh --config $HADOOP_CONF_DIR start proxyserver
+    become: yes
+    become_flags: -E
+    shell: $HADOOP_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start proxyserver

@@ -4,7 +4,9 @@
     - hadoop_common
   tasks:
   - name: stop name node process
-    shell: hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs stop namenode
+    become: yes
+    become_flags: -E
+    shell: $HADOOP_HOME/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs stop namenode
 
 
 - hosts: data_node
@@ -12,4 +14,6 @@
     - hadoop_common
   tasks:
   - name: stop data node process
-    shell: hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs stop datanode
+    become: yes
+    become_flags: -E
+    shell: $HADOOP_HOME/sbin/hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs stop datanode

@@ -10,7 +10,8 @@
 
   - name: start name node process
     become: yes
-    shell: hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode
+    become_flags: -E
+    shell: $HADOOP_HOME/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode
 
 
 - hosts: data_node
@@ -19,4 +20,5 @@
   tasks:
   - name: start data node process
     become: yes
-    shell: hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs start datanode
+    become_flags: -E
+    shell: $HADOOP_HOME/sbin/hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs start datanode
