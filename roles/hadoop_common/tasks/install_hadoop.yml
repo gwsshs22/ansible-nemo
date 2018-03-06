@@ -15,6 +15,7 @@
   unarchive:
     src: "{{ hadoop_dist_url }}/{{ hadoop_version }}/{{ hadoop_version}}.tar.gz"
     dest: "{{ hadoop_base_path }}"
+    remote_src: yes
   when: not hadoop_home_stats.stat.exists
 
 - name: make a symbolic link from {{ hadoop_version }} to {{ hadoop_base_path }}/hadoop
