@@ -1,0 +1,33 @@
+# master group acts as both name node and resource manager
+[master]
+master
+
+[name_node]
+another_name_node
+
+[name_node:children]
+master
+
+[resource_manager]
+another_resource_manager
+
+[resource_manager:children]
+master
+
+
+# slave group acts as both data node and node manager
+[slave]
+slave01
+slave02
+
+[data_node]
+another_data_node
+
+[data_node:children]
+slave
+
+[node_manager]
+another_node_manager
+
+[node_manager:children]
+slave
