@@ -1,0 +1,18 @@
+---
+- hosts: name_node
+  roles:
+    - hadoop_common
+  tasks:
+  - name: format name node
+    shell: hdfs namenode -format
+
+  - name: start name node process
+    shell: hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode
+
+
+- hosts: data_node
+  roles:
+    - hadoop_common
+  tasks:
+  - name: start data node process
+    shell: hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs start datanode

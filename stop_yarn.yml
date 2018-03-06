@@ -1,0 +1,23 @@
+---
+- hosts: resource_manager
+  roles:
+    - hadoop_common
+  tasks:
+  - name: stop resource manager process
+    shell: yarn-daemon.sh --config $HADOOP_CONF_DIR stop resourcemanager
+
+
+- hosts: node_manager
+  roles:
+    - hadoop_common
+  tasks:
+  - name: stop node manager process
+    shell: yarn-daemons.sh --config $HADOOP_CONF_DIR stop nodemanager
+
+
+- hosts: resource_manager
+  roles:
+    - hadoop_common
+  tasks:
+  - name: stop proxy server process
+    shell: yarn-daemon.sh --config $HADOOP_CONF_DIR stop proxyserver

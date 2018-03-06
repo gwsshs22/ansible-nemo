@@ -1,0 +1,3 @@
+---
+- import_playbook: start_hdfs.yml
+- import_playbook: start_yarn.yml

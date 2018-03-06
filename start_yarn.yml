@@ -1,0 +1,23 @@
+---
+- hosts: resource_manager
+  roles:
+    - hadoop_common
+  tasks:
+  - name: start resource manager process
+    shell: yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager
+
+
+- hosts: node_manager
+  roles:
+    - hadoop_common
+  tasks:
+  - name: start node manager process
+    shell: yarn-daemons.sh --config $HADOOP_CONF_DIR start nodemanager
+
+
+- hosts: resource_manager
+  roles:
+    - hadoop_common
+  tasks:
+  - name: start proxy server process
+    shell: yarn-daemon.sh --config $HADOOP_CONF_DIR start proxyserver

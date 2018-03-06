@@ -1,0 +1,15 @@
+---
+- hosts: name_node
+  roles:
+    - hadoop_common
+  tasks:
+  - name: stop name node process
+    shell: hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs stop namenode
+
+
+- hosts: data_node
+  roles:
+    - hadoop_common
+  tasks:
+  - name: stop data node process
+    shell: hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs stop datanode

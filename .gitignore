@@ -1,2 +1,5 @@
 hadoop_config_files/
 extra_vars.json
+hosts.template
+
+*.retry
