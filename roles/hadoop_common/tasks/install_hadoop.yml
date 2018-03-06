@@ -13,7 +13,7 @@
 - name: unarchive {{ hadoop_version }} file from hadoop dist url
   become: true
   unarchive:
-    src: "{{ hadoop_dist_url }}/{{ hadoop_version}}.tar.gz"
+    src: "{{ hadoop_dist_url }}/{{ hadoop_version }}/{{ hadoop_version}}.tar.gz"
     dest: "{{ hadoop_base_path }}"
   when: not hadoop_home_stats.stat.exists
 
