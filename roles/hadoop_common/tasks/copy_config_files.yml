@@ -1,6 +1,7 @@
 ---
 - name: copy etc/hadoop/*.xml from local machine
   copy:
-    src: "{{ hadoop_config_files_path }}"
-    dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop"
+    src: "{{ hadoop_config_files_path }}/"
+    dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/"
+    directory_mode: yes
   when: hadoop_config_files_path is defined and hadoop_config_files_path != ''

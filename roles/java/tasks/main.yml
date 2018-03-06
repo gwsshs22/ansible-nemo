@@ -9,4 +9,4 @@
   become: true
   template:
     src: java_env.sh
-    dest: /etc/profile.d
+    dest: /etc/profile.d/java_env.sh
