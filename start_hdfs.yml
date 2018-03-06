@@ -5,6 +5,7 @@
   tasks:
   - name: format name node
     become: yes
+    become_flags: -E
     shell: hdfs namenode -format
 
   - name: start name node process
