@@ -4,9 +4,11 @@
     - hadoop_common
   tasks:
   - name: format name node
+    become: yes
     shell: hdfs namenode -format
 
   - name: start name node process
+    become: yes
     shell: hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode
 
 
@@ -15,4 +17,5 @@
     - hadoop_common
   tasks:
   - name: start data node process
+    become: yes
     shell: hadoop-daemons.sh --config $HADOOP_CONF_DIR --script hdfs start datanode
