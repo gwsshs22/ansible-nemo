@@ -2,8 +2,11 @@
 - name: install java
   become: true
   yum:
-    name: "{{ java_version }}"
+    name: "{{ item }}"
     state: present
+  with_items:
+    - "{{ java_version }}"
+    - "{{ java_version }}-devel"
 
 - name: setup java environment variables
   become: true
