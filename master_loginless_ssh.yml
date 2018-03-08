@@ -15,10 +15,14 @@
     - name: create ssh key in master
       shell: ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa creates=~/.ssh/id_rsa
 
+    - shell: cat {{ ansible_env.HOME }}/.ssh/id_rsa.pub
+      register: master_pub_key
+      changed_when: False
+
     - name: allow local ssh connection
       lineinfile:
         dest: "{{ ansible_env.HOME }}/.ssh/authorized_keys"
-        line: "{{ lookup('file', '{{ ansible_env.HOME }}/.ssh/id_rsa.pub') }}"
+        line: "{{ master_pub_key.stdout }}"
         create: yes
 
     - name: disable ssh host key checking
