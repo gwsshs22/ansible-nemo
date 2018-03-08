@@ -36,6 +36,7 @@
     - fetch:
         src: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
         dest: "{{ key_basedir }}"
+      changed_when: False
 
 
 - hosts: hadoop_slave
@@ -53,24 +54,17 @@
       changed_when: False
       run_once: yes
 
-    - debug: var=file_paths
-
     - local_action: shell cat {{ item }}
       with_items: "{{ file_paths.stdout_lines }}"
       register: key_string
       changed_when: False
       run_once: yes
 
-    - debug: var=key_string
-
     - name: add_key_string_to_authorized_keys
       lineinfile: dest={{ ansible_env.HOME }}/.ssh/authorized_keys line="{{ item.stdout }}" create=yes
       with_items: "{{ key_string.results }}"
 
-    - local_action:
-        module: file
-        path: "{{ key_basedir }}"
-        state: directory
-        mode: absent
+    - local_action: shell rm -rf {{ key_basedir }}
       run_once: yes
+      changed_when: False
 
