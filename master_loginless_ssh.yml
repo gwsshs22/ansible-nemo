@@ -32,6 +32,7 @@
         path: "{{ key_basedir }}"
         state: directory
       run_once: yes
+      changed_when: False
 
     - fetch:
         src: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
