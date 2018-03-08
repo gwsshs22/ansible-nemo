@@ -64,7 +64,7 @@
       with_items: key_string.results
 
     - local_action:
-      module: file
-      path: "{{ key_basedir }}"
-      mode: absent
+        module: file
+        path: "{{ key_basedir }}"
+        mode: absent
 
