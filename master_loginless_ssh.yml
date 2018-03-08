@@ -20,6 +20,9 @@
           Host *
               StrictHostKeyChecking no
 
+    - shell: cat ~/.ssh/id_rsa.pub
+      register: master_pub_key
+
 
 - hosts: hadoop_slave
   tasks:
@@ -29,16 +32,8 @@
     - name: create authorized_keys on slave if not exists
       file: path=/home/{{ ansible_user_id }}/.ssh/authorized_keys state=file
 
-    - name: copy /home/{{ ansible_user_id }}/.ssh/id_rsa.pub
-      synchronize:
-        src: /home/{{ ansible_user_id }}/.ssh/id_rsa.pub
-        dest: /home/{{ ansible_user_id }}/.ssh/master_id_rsa.pub
-        existing_only: yes
-      delegate_to: "{{ groups.hadoop_master[0] }}"
-
-    - shell: cat ~/.ssh/master_id_rsa.pub
-      register: master_pub_key
-      changed_when: False
+    - debug:
+        var: master_pub_key
 
     - name: copy public key of master to authorized_keys of slaves
       lineinfile:

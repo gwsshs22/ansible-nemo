@@ -4,9 +4,6 @@
   yum:
     name: "{{ java_version }}"
     state: present
-  yum:
-    name: rsync
-    state: present
 
 - name: setup java environment variables
   become: true
