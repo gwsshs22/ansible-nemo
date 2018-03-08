@@ -48,19 +48,23 @@
     - name: create authorized_keys on slave if not exists
       file: path={{ ansible_env.HOME }}/.ssh/authorized_keys state=file
 
-    - local_action: shell cat {{ key_basedir }}/**/*.pub
-      register: pub_keys
+    - local_action: shell find {{ key_basedir }} -type f
+      register: file_paths
       changed_when: False
-      
-    - debug: var=pub_keys
-        
-    - local_action:
-        module: file
-        path: "{{ key_basedir }}"
-        mode: absent
 
-    - name: copy public key of master to authorized_keys of slaves
-      blockinfile:
-        block: "{{ pub_keys.stdout }}"
-        path: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+    - local_action: shell cat {{ item }}
+      with_items: file_paths.stdout.split()
+      register: key_string
+      changed_when: False
+
+    - debug: var=key_string
+
+    - name: add_key_string_to_authorized_keys
+      lineinfile: dest={{ ansible_env.HOME }}/.ssh/authorized_keys line="{{ item.stdout }}" create=yes
+      with_items: key_string.results
+
+    - local_action:
+      module: file
+      path: "{{ key_basedir }}"
+      mode: absent
 
