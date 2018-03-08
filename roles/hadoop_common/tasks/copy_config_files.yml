@@ -5,14 +5,16 @@
     dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/slaves"
   when: hadoop_role | match("master")
 
-- name: copy etc/hadoop/*.xml from local machine
+
+- debug: var=hadoop_config_files_path
+
+- name: copy etc/hadoop/* from local machine
   copy:
     src: "{{ hadoop_config_files_path }}/"
     dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/"
     directory_mode: yes
     force: yes
   when: hadoop_config_files_path is defined and hadoop_config_files_path != ''
-
 
 - shell: echo $JAVA_HOME
   register: java_home
