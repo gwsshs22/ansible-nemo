@@ -1,5 +1,6 @@
-hadoop_base_path: /opt/hadoop
+hadoop_base_path: /home/{{ ansible_user_id }}/hadoop
 hadoop_version: hadoop-2.7.4
 hadoop_dist_url: http://apache.tt.co.kr/hadoop/common
 
 hadoop_config_files_path: ""
+

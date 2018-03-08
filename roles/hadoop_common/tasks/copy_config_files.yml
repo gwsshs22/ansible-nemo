@@ -1,6 +1,5 @@
 ---
 - name: copy etc/hadoop/*.xml from local machine
-  become: true
   copy:
     src: "{{ hadoop_config_files_path }}/"
     dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/"

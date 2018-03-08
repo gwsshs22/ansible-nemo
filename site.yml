@@ -1,6 +1,0 @@
----
-- hosts: hosts
-  roles:
-    - java
-    - hadoop_common
-    
