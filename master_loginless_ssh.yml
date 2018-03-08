@@ -49,9 +49,10 @@
       file: path={{ key_basedir }}/.ssh state=directory
 
     - name: copy keys to slaves
-      src: "{{ key_basedir }}"
-      dest: "{{ key_basedir }}"
-      directory_mode: yes
+      copy:
+        src: "{{ key_basedir }}"
+        dest: "{{ key_basedir }}"
+        directory_mode: yes
 
 
     - name: register public keys
@@ -59,7 +60,7 @@
       register: pub_keys
 
     - name: copy public key of master to authorized_keys of slaves
-      block:
+      blockinfile:
         block: "{{ pub_keys.stdout }}"
         path: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
 
