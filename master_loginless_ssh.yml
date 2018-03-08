@@ -1,5 +1,5 @@
 ---
-- hosts: master
+- hosts: hadoop_master
   tasks:
     - name: create .ssh
       file: path=/home/{{ ansible_user_id }}/.ssh state=directory
@@ -18,7 +18,7 @@
               StrictHostKeyChecking no
 
 
-- hosts: slave
+- hosts: hadoop_slave
   tasks:
     - name: create .ssh on slave
       file: path=/home/{{ ansible_user_id }}/.ssh state=directory
