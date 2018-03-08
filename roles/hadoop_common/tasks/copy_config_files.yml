@@ -3,7 +3,7 @@
   template:
     src: slaves.j2
     dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/slaves"
-  when: role is 'master'
+  when: hadoop_role is 'master'
 
 - name: copy etc/hadoop/*.xml from local machine
   copy:
@@ -16,7 +16,6 @@
 
 - shell: echo $JAVA_HOME
   register: java_home
-
 
 - name: add java home to hadoop_env.sh
   lineinfile:
