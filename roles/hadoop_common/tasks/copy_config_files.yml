@@ -14,6 +14,7 @@
   when: hadoop_config_files_path is defined and hadoop_config_files_path != ''
 
 - shell: echo $JAVA_HOME
+  changed_when: False
   register: java_home
 
 - name: add java home to hadoop_env.sh

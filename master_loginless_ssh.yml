@@ -1,0 +1,40 @@
+---
+- hosts: master
+  tasks:
+    - name: create .ssh
+      file: path=/home/{{ ansible_user_id }}/.ssh state=directory
+
+    - name: create ssh key in master
+      shell: ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa creates=~/.ssh/id_rsa
+
+    - name: disable ssh host key checking
+      blockinfile:
+        path: "/home/{{ ansible_user_id }}/.ssh/config"
+        block: |
+          Host *
+              StrictHostKeyChecking no
+
+
+- hosts: slave
+  tasks:
+    - name: create .ssh on slave
+      file: path=/home/{{ ansible_user_id }}/.ssh state=directory
+
+    - name: create authorized_keys on slave if not exists
+      file: path=/home/{{ ansible_user_id }}/.ssh/authorized_keys state=touch
+
+    - name: copy /home/{{ ansible_user_id }}/.ssh/id_rsa.pub
+      copy:
+        src: /home/{{ ansible_user_id }}/.ssh/id_rsa.pub
+        dest: /home/{{ ansible_user_id }}/.ssh/master_id_rsa.pub
+        creates: /home/{{ ansible_user_id }}/.ssh/master_id_rsa.pub
+
+    - shell: cat ~/.ssh/master_id_rsa.pub
+      register: master_pub_key
+      changed_when: False
+
+    - name: copy public key of master to authorized_keys of slaves
+      lineinfile:
+        line: "{{ master_pub_key.stdout }}"
+        path: /home/{{ ansible_user_id }}/.ssh/id_rsa.pub
+
