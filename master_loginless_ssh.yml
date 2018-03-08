@@ -1,12 +1,14 @@
 ---
 - hosts: hadoop_master
+  vars:
+    key_basedir: "/tmp/id_rsa_{{ ansible_date_time.epoch }}"
   tasks:
     - name: create .ssh
-      file: path=/home/{{ ansible_user_id }}/.ssh state=directory
+      file: path={{ ansible_env.HOME }}/.ssh state=directory
 
     - name: create .ssh/config
       file:
-        path: /home/{{ ansible_user_id }}/.ssh/config
+        path: "{{ ansible_env.HOME }}/.ssh/config"
         state: file
         mode: "u=rw,g=r,o=r"
 
@@ -15,28 +17,49 @@
 
     - name: disable ssh host key checking
       blockinfile:
-        path: "/home/{{ ansible_user_id }}/.ssh/config"
+        path: "{{ ansible_env.HOME }}/.ssh/config"
         block: |
           Host *
               StrictHostKeyChecking no
 
-    - shell: cat ~/.ssh/id_rsa.pub
-      register: master_pub_key
+    - name: create local key_basedir
+      local_action:
+        module: file
+        path: "{{ key_basedir }}"
+        state: directory
+      run_once: yes
+
+    - fetch:
+      src: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+      dest: "{{ key_basedir }}"
 
 
 - hosts: hadoop_slave
+  vars:
+    key_basedir: "/tmp/id_rsa_{{ ansible_date_time.epoch }}"
   tasks:
     - name: create .ssh on slave
-      file: path=/home/{{ ansible_user_id }}/.ssh state=directory
+      file: path={{ ansible_env.HOME }}/.ssh state=directory
 
     - name: create authorized_keys on slave if not exists
-      file: path=/home/{{ ansible_user_id }}/.ssh/authorized_keys state=file
+      file: path={{ ansible_env.HOME }}/.ssh/authorized_keys state=file
 
-    - debug:
-        var: master_pub_key
+
+    - name: create key_basedir
+      file: path={{ key_basedir }}/.ssh state=directory
+
+    - name: copy keys to slaves
+      src: "{{ key_basedir }}"
+      dest: "{{ key_basedir }}"
+      directory_mode: yes
+
+
+    - name: register public keys
+      shell: cat {{ key_basedir }}/**/*.pub
+      register: pub_keys
 
     - name: copy public key of master to authorized_keys of slaves
-      lineinfile:
-        line: "{{ master_pub_key.stdout }}"
-        path: /home/{{ ansible_user_id }}/.ssh/id_rsa.pub
+      block:
+        block: "{{ pub_keys.stdout }}"
+        path: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
 
