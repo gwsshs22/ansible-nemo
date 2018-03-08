@@ -70,6 +70,7 @@
     - local_action:
         module: file
         path: "{{ key_basedir }}"
+        state: directory
         mode: absent
       run_once: yes
 
