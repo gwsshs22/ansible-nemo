@@ -3,7 +3,7 @@
   template:
     src: slaves.j2
     dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/slaves"
-  tags: config_master
+  when: role is 'master'
 
 - name: copy etc/hadoop/*.xml from local machine
   copy:
@@ -12,17 +12,13 @@
     directory_mode: yes
     force: yes
   when: hadoop_config_files_path is defined and hadoop_config_files_path != ''
-  tags:
-    - config_slave
-    - config_master
+
 
 - shell: echo $JAVA_HOME
   register: java_home
+
 
 - name: add java home to hadoop_env.sh
   lineinfile:
     dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/hadoop-env.sh"
     line: "export JAVA_HOME={{ java_home.stdout }}"
-  tags:
-    - config_slave
-    - config_master

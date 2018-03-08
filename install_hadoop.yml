@@ -2,6 +2,6 @@
 - hosts: hadoop_master:hadoop_slave
   roles:
     - java_centos
-    - { role: hadoop_common, tags: ['install'] }
+    - { role: hadoop_common }
 
     

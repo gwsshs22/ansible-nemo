@@ -1,8 +1,8 @@
 ---
 - hosts: hadoop_master
   roles:
-    - { role: hadoop_common, tags: ['config_master'] }
+    - { role: hadoop_common, install_mode: false, role: master }
 
 - hosts: hadoop_slave
   roles:
-    - { role: hadoop_common, tags: ['config_slave'] }
+    - { role: hadoop_common, install_mode: false, role: slave }

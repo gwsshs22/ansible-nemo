@@ -1,3 +1,6 @@
 ---
 - import_tasks: install_hadoop.yml
+  when: install_mode
+
 - import_tasks: copy_config_files.yml
+  when: not install_mode
