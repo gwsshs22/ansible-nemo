@@ -3,7 +3,7 @@
   template:
     src: slaves.j2
     dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/slaves"
-  when: hadoop_role is 'master'
+  when: hadoop_role | match("master")
 
 - name: copy etc/hadoop/*.xml from local machine
   copy:
