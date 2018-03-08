@@ -5,4 +5,4 @@
 - hosts: hadoop_master
   tasks:
     - name: format namenode
-      shell: $HADOOP_HOME/bin/hdfs namenode -format
+      shell: $HADOOP_HOME/bin/hdfs namenode -format -force
