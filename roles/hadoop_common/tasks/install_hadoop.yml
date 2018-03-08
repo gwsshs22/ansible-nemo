@@ -3,12 +3,14 @@
   file:
     state: directory
     path: "{{ hadoop_base_path }}"
+  tags: install
 
 - local_action:
      module: stat
      path: /tmp/ansible/{{ hadoop_version }}.tar.gz
   run_once: true
   register: local_hadoop_file_stats
+  tags: install
 
 - local_action:
     module: file
@@ -17,25 +19,30 @@
     recurse: yes
   run_once: true
   when: not local_hadoop_file_stats.stat.exists
+  tags: install
 
 - local_action:
     module: get_url
     url: "{{ hadoop_dist_url }}/{{ hadoop_version }}/{{ hadoop_version }}.tar.gz"
     dest: /tmp/ansible/{{ hadoop_version }}.tar.gz
   when: not local_hadoop_file_stats.stat.exists
+  tags: install
 
 - file:
     path: "{{ hadoop_base_path }}"
     state: directory
+  tags: install
       
 - name: unarchive {{ hadoop_version }} file from local hadoop file
   unarchive:
     src: "/tmp/ansible/{{ hadoop_version }}.tar.gz"
     dest: "{{ hadoop_base_path }}"
     creates: "{{ hadoop_base_path }}/{{ hadoop_version }}"
+  tags: install
 
 - name: setup hadoop environment variables
   become: true
   template:
     src: hadoop_env.sh.j2
     dest: /etc/profile.d/hadoop_env.sh
+  tags: install

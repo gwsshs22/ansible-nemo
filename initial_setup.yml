@@ -1,0 +1,2 @@
+- import_playbook: install_hadoop.yml
+- import_playbook: configure_hadoop.yml

@@ -1,4 +1,10 @@
 ---
+- name: generate slaves file to hadoop_master
+  template:
+    src: slaves.j2
+    dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/"
+  tags: config_master
+
 - name: copy etc/hadoop/*.xml from local machine
   copy:
     src: "{{ hadoop_config_files_path }}/"
@@ -6,3 +12,6 @@
     directory_mode: yes
     force: yes
   when: hadoop_config_files_path is defined and hadoop_config_files_path != ''
+  tags:
+    - config_slave
+    - config_master
