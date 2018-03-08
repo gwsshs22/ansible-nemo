@@ -56,7 +56,7 @@
     - debug: var=file_paths
 
     - local_action: shell cat {{ item }}
-      with_items: file_paths.stdout.split()
+      with_items: file_paths.stdout_lines
       register: key_string
       changed_when: False
       run_once: yes
