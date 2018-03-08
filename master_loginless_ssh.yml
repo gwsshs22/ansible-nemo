@@ -30,8 +30,8 @@
       run_once: yes
 
     - fetch:
-      src: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
-      dest: "{{ key_basedir }}"
+        src: "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+        dest: "{{ key_basedir }}"
 
 
 - hosts: hadoop_slave
