@@ -46,6 +46,14 @@
     dest: "{{ hadoop_base_path }}/hadoop"
     state: link
 
+- name: create data dirs
+  file:
+    path: "{{ hadoop_name_node_dir }}"
+    state: directory
+  file:
+    path: "{{ hadoop_data_node_dir }}"
+    state: directory
+
 - name: setup hadoop environment variables
   become: true
   template:
