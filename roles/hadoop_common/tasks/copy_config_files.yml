@@ -2,7 +2,7 @@
 - name: generate slaves file to hadoop_master
   template:
     src: slaves.j2
-    dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/"
+    dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/slaves"
   tags: config_master
 
 - name: copy etc/hadoop/*.xml from local machine
@@ -22,7 +22,7 @@
 - name: add java home to hadoop_env.sh
   lineinfile:
     dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/hadoop-env.sh"
-    line: "export JAVA_HOME={{ java_home }}"
+    line: "export JAVA_HOME={{ java_home.stdout }}"
   tags:
     - config_slave
     - config_master
