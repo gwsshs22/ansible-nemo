@@ -15,3 +15,14 @@
   tags:
     - config_slave
     - config_master
+
+- shell: echo $JAVA_HOME
+  register: java_home
+
+- name: add java home to hadoop_env.sh
+  lineinfile:
+    dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/hadoop-env.sh"
+    line: "export JAVA_HOME={{ java_home }}"
+  tags:
+    - config_slave
+    - config_master

@@ -40,6 +40,12 @@
     creates: "{{ hadoop_base_path }}/{{ hadoop_version }}"
   tags: install
 
+- name: make a symbolic link to {{ hadoop_base_path }}/hadoop
+  file:
+    src: "{{ hadoop_base_path }}/{{ hadoop_version }}"
+    dest: "{{ hadoop_base_path }}/hadoop"
+    state: link
+
 - name: setup hadoop environment variables
   become: true
   template:
