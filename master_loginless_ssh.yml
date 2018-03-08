@@ -2,10 +2,10 @@
 - hosts: hadoop_master
   tasks:
     - name: create .ssh
-      file: path=/home/{{ ansible_user_id }}/.ssh state=directory
+      file: path=/home/{{ ansible_user_id }}/.ssh state=file
 
     - name: create .ssh/config
-      file: path=/home/{{ ansible_user_id }}/.ssh/config state=touch
+      file: path=/home/{{ ansible_user_id }}/.ssh/config state=file
 
     - name: create ssh key in master
       shell: ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa creates=~/.ssh/id_rsa
@@ -24,13 +24,13 @@
       file: path=/home/{{ ansible_user_id }}/.ssh state=directory
 
     - name: create authorized_keys on slave if not exists
-      file: path=/home/{{ ansible_user_id }}/.ssh/authorized_keys state=touch
+      file: path=/home/{{ ansible_user_id }}/.ssh/authorized_keys state=file
 
     - name: copy /home/{{ ansible_user_id }}/.ssh/id_rsa.pub
       synchronize:
         src: /home/{{ ansible_user_id }}/.ssh/id_rsa.pub
         dest: /home/{{ ansible_user_id }}/.ssh/master_id_rsa.pub
-        creates: /home/{{ ansible_user_id }}/.ssh/master_id_rsa.pub
+        existing_only: yes
       delegate_to: "{{ groups.hadoop_master[0] }}"
 
     - shell: cat ~/.ssh/master_id_rsa.pub
