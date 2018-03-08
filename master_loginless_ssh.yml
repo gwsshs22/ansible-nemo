@@ -1,7 +1,7 @@
 ---
 - hosts: hadoop_master
   vars:
-    key_basedir: "/tmp/id_rsa_{{ ansible_date_time.epoch }}"
+    key_basedir: "/tmp/ansible/id_rsa_copy"
   tasks:
     - name: create .ssh
       file: path={{ ansible_env.HOME }}/.ssh state=directory
@@ -26,6 +26,10 @@
       local_action:
         module: file
         path: "{{ key_basedir }}"
+        state: absent
+      local_action:
+        module: file
+        path: "{{ key_basedir }}"
         state: directory
       run_once: yes
 
@@ -36,7 +40,7 @@
 
 - hosts: hadoop_slave
   vars:
-    key_basedir: "/tmp/id_rsa_{{ ansible_date_time.epoch }}"
+    key_basedir: "/tmp/ansible/id_rsa_copy"
   tasks:
     - name: create .ssh on slave
       file: path={{ ansible_env.HOME }}/.ssh state=directory
@@ -46,7 +50,8 @@
 
 
     - name: create key_basedir
-      file: path={{ key_basedir }}/.ssh state=directory
+      file: path={{ key_basedir }} state=absent
+      file: path={{ key_basedir }} state=directory
 
     - name: copy keys to slaves
       copy:
