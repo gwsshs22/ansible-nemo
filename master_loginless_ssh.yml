@@ -51,11 +51,15 @@
     - local_action: shell find {{ key_basedir }} -type f
       register: file_paths
       changed_when: False
+      run_once: yes
+
+    - debug: var=file_paths
 
     - local_action: shell cat {{ item }}
       with_items: file_paths.stdout.split()
       register: key_string
       changed_when: False
+      run_once: yes
 
     - debug: var=key_string
 
@@ -67,4 +71,5 @@
         module: file
         path: "{{ key_basedir }}"
         mode: absent
+      run_once: yes
 
