@@ -1,0 +1,8 @@
+---
+- hosts: hadoop_master
+  tasks:
+    - name: start all hdfs processes
+      shell: $HADOOP_HOME/sbin/start-dfs.sh
+
+    - name: start all yarn processes
+      shell: $HADOOP_HOME/sbin/start-yarn.sh

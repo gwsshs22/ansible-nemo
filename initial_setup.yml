@@ -1,3 +1,8 @@
 - import_playbook: install_hadoop.yml
 - import_playbook: configure_hadoop.yml
 - import_playbook: master_loginless_ssh.yml
+
+- hosts: hadoop_master
+  tasks:
+    - name: format namenode
+      shell: $HADOOP_HOME/bin/hdfs namenode -format
