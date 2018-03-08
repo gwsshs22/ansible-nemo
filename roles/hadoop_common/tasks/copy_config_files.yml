@@ -5,9 +5,6 @@
     dest: "{{ hadoop_base_path }}/hadoop/etc/hadoop/slaves"
   when: hadoop_role | match("master")
 
-
-- debug: var=hadoop_config_files_path
-
 - name: copy etc/hadoop/* from local machine
   copy:
     src: "{{ hadoop_config_files_path }}/"

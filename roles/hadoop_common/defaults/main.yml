@@ -1,0 +1,7 @@
+hadoop_base_path: /home/{{ ansible_user_id }}/hadoop
+hadoop_version: hadoop-2.7.4
+hadoop_dist_url: http://apache.tt.co.kr/hadoop/common
+
+hadoop_name_node_dir: "{{ hadoop_base_path }}/data/name-node/"
+hadoop_data_node_dir: "{{ hadoop_base_path }}/data/data-node/"
+hadoop_config_files_path: ""
