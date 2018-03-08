@@ -5,7 +5,10 @@
       file: path=/home/{{ ansible_user_id }}/.ssh state=directory
 
     - name: create .ssh/config
-      file: path=/home/{{ ansible_user_id }}/.ssh/config state=file
+      file:
+        path: /home/{{ ansible_user_id }}/.ssh/config
+        state: file
+        mode: "u=rw,g=r,o=r"
 
     - name: create ssh key in master
       shell: ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa creates=~/.ssh/id_rsa
