@@ -9,7 +9,7 @@
     - name: create .ssh/config
       file:
         path: "{{ ansible_env.HOME }}/.ssh/config"
-        state: file
+        state: touch
         mode: "u=rw,g=r,o=r"
 
     - name: create ssh key in master
@@ -56,9 +56,6 @@
   tasks:
     - name: create .ssh on slave
       file: path={{ ansible_env.HOME }}/.ssh state=directory
-
-    - name: create authorized_keys on slave if not exists
-      file: path={{ ansible_env.HOME }}/.ssh/authorized_keys state=file
 
     - local_action: shell find {{ key_basedir }} -type f
       register: file_paths

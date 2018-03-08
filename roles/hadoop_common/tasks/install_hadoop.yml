@@ -7,7 +7,7 @@
 - local_action:
      module: stat
      path: /tmp/ansible/{{ hadoop_version }}.tar.gz
-  run_once: true
+  run_once: yes
   register: local_hadoop_file_stats
 
 - local_action:
@@ -15,13 +15,14 @@
     path: /tmp/ansible
     state: directory
     recurse: yes
-  run_once: true
+  run_once: yes
   when: not local_hadoop_file_stats.stat.exists
 
 - local_action:
     module: get_url
     url: "{{ hadoop_dist_url }}/{{ hadoop_version }}/{{ hadoop_version }}.tar.gz"
     dest: /tmp/ansible/{{ hadoop_version }}.tar.gz
+  run_once: yes
   when: not local_hadoop_file_stats.stat.exists
 
 - file:
