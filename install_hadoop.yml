@@ -1,0 +1,5 @@
+---
+- hosts: hadoop_master|hadoop_slave
+  roles:
+    - java-centos
+    - hadoop_common
