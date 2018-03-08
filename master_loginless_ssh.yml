@@ -15,6 +15,12 @@
     - name: create ssh key in master
       shell: ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa creates=~/.ssh/id_rsa
 
+    - name: allow local ssh connection
+      lineinfile:
+        dest: "{{ ansible_env.HOME }}/.ssh/authorized_keys"
+        line: "{{ lookup('file', '{{ ansible_env.HOME }}/.ssh/id_rsa.pub') }}"
+        create: yes
+
     - name: disable ssh host key checking
       blockinfile:
         path: "{{ ansible_env.HOME }}/.ssh/config"
