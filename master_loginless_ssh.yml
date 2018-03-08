@@ -5,7 +5,7 @@
       file: path=/home/{{ ansible_user_id }}/.ssh state=directory
 
     - name: create .ssh/config
-      file: path=/home/{{ ansible_user_id }}/.ssh/config state=touch  
+      file: path=/home/{{ ansible_user_id }}/.ssh/config state=touch creates=/home/{{ ansible_user_id }}/.ssh/config
 
     - name: create ssh key in master
       shell: ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa creates=~/.ssh/id_rsa
@@ -27,7 +27,7 @@
       file: path=/home/{{ ansible_user_id }}/.ssh/authorized_keys state=touch
 
     - name: copy /home/{{ ansible_user_id }}/.ssh/id_rsa.pub
-      copy:
+      synchronize:
         src: /home/{{ ansible_user_id }}/.ssh/id_rsa.pub
         dest: /home/{{ ansible_user_id }}/.ssh/master_id_rsa.pub
         creates: /home/{{ ansible_user_id }}/.ssh/master_id_rsa.pub
