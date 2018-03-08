@@ -32,7 +32,6 @@
   unarchive:
     src: "/tmp/ansible/{{ hadoop_version }}.tar.gz"
     dest: "{{ hadoop_base_path }}"
-    remote_src: yes
     creates: "{{ hadoop_base_path }}/{{ hadoop_version }}"
 
 - name: setup hadoop environment variables
