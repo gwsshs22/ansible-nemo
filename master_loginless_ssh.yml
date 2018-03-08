@@ -2,7 +2,7 @@
 - hosts: hadoop_master
   tasks:
     - name: create .ssh
-      file: path=/home/{{ ansible_user_id }}/.ssh state=file
+      file: path=/home/{{ ansible_user_id }}/.ssh state=directory
 
     - name: create .ssh/config
       file: path=/home/{{ ansible_user_id }}/.ssh/config state=file
