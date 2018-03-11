@@ -1,1 +1,2 @@
 protobuf_dist_url: https://github.com/google/protobuf/releases/download/v2.5.0/protobuf-2.5.0.tar.gz
+nemo_git_repo_url: https://github.com/apache/incubator-nemo.git

@@ -1,25 +1,27 @@
 - name: install packages for compile protobuf
-  become: true
-  yum:
+  become: yes
+  package:
     name: "{{ item }}"
     state: present
   with_items:
     - make
     - gcc
 
-- name: create tmp directory
-  file: path=/tmp/ansible/protobuf state=directory
+- name: create protobuf directory
+  file: path={{ ansible_env.HOME }}/protobuf state=directory
 
 - name: download protobuf 2.5.0
   unarchive:
     src: "{{ protobuf_dist_url }}"
-    dest: /tmp/ansible/protobuf
-    creates: /tmp/ansible/protobuf/protobuf-2.5.0
+    dest: "{{ ansible_env.HOME }}/protobuf"
+    creates: "{{ ansible_env.HOME }}/protobuf/protobuf-2.5.0"
 
 - name: compile protobuf 2.5.0
-  become: true
+  become: yes
   shell: |
-    cd /tmp/ansible/protobuf/protobuf-2.5.0 && ./configure
-    cd /tmp/ansible/protobuf/protobuf-2.5.0 && make
-    cd /tmp/ansible/protobuf/protobuf-2.5.0 && make check
-    cd /tmp/ansible/protobuf/protobuf-2.5.0 && make install
+    cd {{ ansible_env.HOME }}/protobuf/protobuf-2.5.0 && ./configure
+    cd {{ ansible_env.HOME }}/protobuf/protobuf-2.5.0 && make
+    cd {{ ansible_env.HOME }}/protobuf/protobuf-2.5.0 && make check
+    cd {{ ansible_env.HOME }}/protobuf/protobuf-2.5.0 && make install
+
+

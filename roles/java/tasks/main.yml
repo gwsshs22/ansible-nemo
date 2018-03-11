@@ -1,6 +1,6 @@
 ---
 - name: install java
-  become: true
+  become: yes
   yum:
     name: "{{ item }}"
     state: present
@@ -9,7 +9,7 @@
     - "{{ java_version }}-devel"
 
 - name: setup java environment variables
-  become: true
+  become: yes
   template:
     src: java_env.sh
     dest: /etc/profile.d/java_env.sh
