@@ -1,4 +1,4 @@
 env/
 hosts
-
+ansible.cfg
 *.retry

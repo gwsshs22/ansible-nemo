@@ -1,0 +1,11 @@
+- name: install apache mvn
+  yum: name=apache-maven state=present
+
+- name: clone incubator-nemo project
+  git:
+    repo: https://github.com/apache/incubator-nemo.git
+    dest: "{{ ansible_env.HOME }}"
+
+- name: build incubaotr-nemo project
+  shell: |
+    cd {{ ansible_env.HOME }}/incubator-nemo && mvn clean install -T 2C

@@ -1,0 +1,2 @@
+- import_playbook: playbooks/hadoop/initial_setup.yml
+- import_playbook: playbooks/nemo/initial_setup.yml

@@ -4,4 +4,3 @@
     - java_centos
     - { role: hadoop_common }
 
-    
