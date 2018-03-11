@@ -1,1 +1,0 @@
-is_yum_needed: "{{ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'}}"

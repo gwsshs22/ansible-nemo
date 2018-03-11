@@ -3,6 +3,11 @@
     repo: "{{ nemo_git_repo_url }}"
     dest: "{{ ansible_env.HOME }}"
 
+- name: install maven
+  package:
+    name: maven
+    state: present
+
 - name: build incubaotr-nemo project
   shell: |
     cd {{ ansible_env.HOME }}/incubator-nemo && mvn clean install -T 2C
