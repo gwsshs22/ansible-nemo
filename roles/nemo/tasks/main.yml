@@ -1,5 +1,3 @@
 ---
-- import_tasks: install_maven.yml
 - import_tasks: install_protobuf.yml
-
 - import_tasks: install_nemo.yml
