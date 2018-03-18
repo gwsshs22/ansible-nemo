@@ -18,12 +18,6 @@
     remote_src: yes
     creates: "{{ ansible_env.HOME }}/protobuf/protobuf-2.5.0"
 
-
-- command: protoc --version
-  register: protoc_version
-  ignore_errors: yes
-  changed_when: False
-
 - name: compile protobuf 2.5.0
   become: yes
   command: "{{ item }}"
@@ -34,6 +28,5 @@
     - "make"
     - "make check"
     - "make install"
-  when: protoc_version != Null && protoc_version.stdout == ''
 
 
