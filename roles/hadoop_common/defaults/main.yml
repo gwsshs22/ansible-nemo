@@ -1,6 +1,6 @@
 hadoop_base_path: "{{ ansible_env.HOME }}/hadoop"
-hadoop_version: hadoop-2.7.5
-hadoop_dist_url: http://apache.tt.co.kr/hadoop/common
+hadoop_version: hadoop-2.7.2
+hadoop_dist_url: https://archive.apache.org/dist/hadoop/core
 
 hadoop_name_node_dir: "{{ hadoop_base_path }}/data/name-node/"
 hadoop_data_node_dir: "{{ hadoop_base_path }}/data/data-node/"
