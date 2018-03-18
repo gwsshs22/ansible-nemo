@@ -14,7 +14,7 @@
   unarchive:
     src: "{{ protobuf_dist_url }}"
     dest: "{{ ansible_env.HOME }}/protobuf"
-    remote: yes
+    remote_src: yes
     creates: "{{ ansible_env.HOME }}/protobuf/protobuf-2.5.0"
 
 - name: compile protobuf 2.5.0
