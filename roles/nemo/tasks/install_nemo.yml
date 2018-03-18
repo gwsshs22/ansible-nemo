@@ -1,12 +1,16 @@
+- name: install git and mvn
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - maven
+    - git
+
 - name: clone incubator-nemo project
   git:
     repo: "{{ nemo_git_repo_url }}"
     dest: "{{ ansible_env.HOME }}"
-
-- name: install maven
-  package:
-    name: maven
-    state: present
 
 - name: build incubaotr-nemo project
   shell: |
