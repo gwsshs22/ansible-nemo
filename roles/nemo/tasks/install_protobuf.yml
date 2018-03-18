@@ -20,10 +20,12 @@
 
 - name: compile protobuf 2.5.0
   become: yes
-  shell: |
-    cd {{ ansible_env.HOME }}/protobuf/protobuf-2.5.0 && ./configure
-    cd {{ ansible_env.HOME }}/protobuf/protobuf-2.5.0 && make
-    cd {{ ansible_env.HOME }}/protobuf/protobuf-2.5.0 && make check
-    cd {{ ansible_env.HOME }}/protobuf/protobuf-2.5.0 && make install
+  command: "{{ item }}"
+    chdir: "{{ ansible_env.HOME }}/protobuf/protobuf-2.5.0"
+  with_items:
+    - ./configure
+    - make
+    - make check
+    - make install
 
 
