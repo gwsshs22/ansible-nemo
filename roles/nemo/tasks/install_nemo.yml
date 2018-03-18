@@ -13,6 +13,6 @@
     dest: "{{ ansible_env.HOME }}/{{ nemo_project_name }}"
 
 - name: build incubaotr-nemo project
-  command: mvn clean install -T 2C
+  command: mvn clean install -T 2C -DskipITs
   args:
     chdir: "{{ ansible_env.HOME }}/{{ nemo_project_name }}"

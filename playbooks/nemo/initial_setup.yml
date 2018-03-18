@@ -1,4 +1,4 @@
 ---
-- hosts: hadoop_master
+- hosts: localhost
   roles:
     - nemo
