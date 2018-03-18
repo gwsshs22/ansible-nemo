@@ -23,8 +23,6 @@
   register: protoc_version
   changed_when: False
 
-- debug: var=protoc_version
-
 - name: compile protobuf 2.5.0
   become: yes
   command: "{{ item }}"
@@ -35,6 +33,6 @@
     - "make"
     - "make check"
     - "make install"
-  when: protoc_version.stdout != ''
+  when: protoc_version.stdout == ''
 
 
