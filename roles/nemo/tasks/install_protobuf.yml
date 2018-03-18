@@ -21,6 +21,7 @@
 
 - command: protoc --version
   register: protoc_version
+  changed_when: False
 
 - debug: var=protoc_version
 
