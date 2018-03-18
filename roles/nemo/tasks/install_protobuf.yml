@@ -21,11 +21,12 @@
 - name: compile protobuf 2.5.0
   become: yes
   command: "{{ item }}"
+  args:
     chdir: "{{ ansible_env.HOME }}/protobuf/protobuf-2.5.0"
   with_items:
-    - ./configure
-    - make
-    - make check
-    - make install
+    - "./configure"
+    - "make"
+    - "make check"
+    - "make install"
 
 
