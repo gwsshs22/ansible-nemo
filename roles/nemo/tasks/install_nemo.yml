@@ -10,8 +10,9 @@
 - name: clone incubator-nemo project
   git:
     repo: "{{ nemo_git_repo_url }}"
-    dest: "{{ ansible_env.HOME }}"
+    dest: "{{ ansible_env.HOME }}/{{ nemo_project_name }}"
 
 - name: build incubaotr-nemo project
-  shell: |
-    cd {{ ansible_env.HOME }}/incubator-nemo && mvn clean install -T 2C
+  command: mvn clean install -T 2C
+    args:
+      chdir: "{{ ansible_env.HOME }}/{{ nemo_project_name }}"
