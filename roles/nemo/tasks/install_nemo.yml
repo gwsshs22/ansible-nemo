@@ -14,5 +14,5 @@
 
 - name: build incubaotr-nemo project
   command: mvn clean install -T 2C
-    args:
-      chdir: "{{ ansible_env.HOME }}/{{ nemo_project_name }}"
+  args:
+    chdir: "{{ ansible_env.HOME }}/{{ nemo_project_name }}"
