@@ -6,6 +6,7 @@
   with_items:
     - make
     - gcc
+    - gcc-c++
 
 - name: create protobuf directory
   file: path={{ ansible_env.HOME }}/protobuf state=directory
